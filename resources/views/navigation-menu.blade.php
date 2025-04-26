@@ -1,3 +1,19 @@
+@if ((Route::currentRouteName() == 'homepage' && !Auth::check()))
+    <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
+        <nav class="flex items-center justify-end gap-4">
+            <a href="{{ route('login') }}"
+                class="inline-block px-5 py-1.5 text-[#1b1b18] border border-transparent hover:border-[#19140035] rounded-sm text-sm leading-normal"
+            > Log in </a>
+
+            @if (Route::has('register'))
+                <a href="{{ route('register') }}"
+                    class="inline-block px-5 py-1.5 border-[#19140035] hover:border-[#1915014a] border text-[#1b1b18] rounded-sm text-sm leading-normal">
+                    Register </a>
+            @endif
+
+        </nav>
+    </nav>
+@else
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -15,8 +31,17 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    <x-nav-link href="{{ route('homepage') }}" :active="request()->routeIs('homepage')">
+                        {{ __('Homepage') }}
+                    </x-nav-link>
+                    <x-nav-link href="{{ route('posts.index') }}" :active="request()->routeIs('posts.index')">
+                        {{ __('My Posts') }}
+                    </x-nav-link>
                 </div>
             </div>
+
+            
+           
 
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <!-- Teams Dropdown -->
@@ -217,3 +242,4 @@
         </div>
     </div>
 </nav>
+@endif
